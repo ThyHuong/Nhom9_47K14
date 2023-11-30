@@ -1,6 +1,6 @@
 ﻿--Nhà cung cấp
 --Mã NCC mới
-alter function fNewMaNCC()
+create function fNewMaNCC()
 returns varchar(8)
 as
 begin
@@ -81,7 +81,7 @@ end
 go
 
 --Xoá NCC
-alter trigger tgDelNCC
+create trigger tgDelNCC
 on NHACUNGCAP instead of delete
 as
 begin
@@ -180,7 +180,7 @@ begin
 end
 go
 
-alter trigger tgdelCTpNK
+create trigger tgdelCTpNK
 on NHAP_CHITIET for delete
 as
 begin
