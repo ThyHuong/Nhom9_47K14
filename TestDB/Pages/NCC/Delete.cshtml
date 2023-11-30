@@ -1,0 +1,28 @@
+﻿@page
+@using System.Data.SqlClient;
+@model TestDB.Pages.NCC.DeleteModel
+@{
+    try
+    {
+        String MaNCC = Request.Query["MaNCC"];
+
+        String connectionString = "Data Source=THYHUONG;Initial Catalog=TestDB;Integrated Security=True";
+        using (SqlConnection connection = new SqlConnection(connectionString))
+        {
+            connection.Open();
+            String sql = "delete NhaCungCap where MaNCC=@MaNCC";
+
+            using (SqlCommand command = new SqlCommand(sql, connection))
+            {
+                command.Parameters.AddWithValue("@MaNCC", MaNCC);
+
+                command.ExecuteNonQuery();
+            }
+        }
+    }
+    catch (Exception)
+    {
+        
+    }
+    Response.Redirect("/NCC/NCC");
+}

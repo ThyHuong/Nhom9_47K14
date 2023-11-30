@@ -1,0 +1,112 @@
+﻿@page
+@model TestDB.Pages.Ban.CreateModel
+@{
+    ViewData["Title"] = "Thêm mới hóa đơn";
+}
+<script src="https://kit.fontawesome.com/5a213e1813.js" crossorigin="anonymous"></script>
+<style>
+    .tb1 {
+        z-index: 3;
+        background-color: lightgray;
+        position: absolute;
+        width: 40%;
+    }
+    .lb{
+        padding-left:15%;
+    }
+</style>
+<div style="background-color:#1877F2;">
+    <hr />
+    <h1 style="text-align:center; color:white">BÁN HÀNG</h1>
+    <hr />
+</div>
+<br />
+@if (Model.errorMessage.Length > 0)
+{
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>@Model.errorMessage</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<form method="get">
+        <div class="mb-3">
+            <div class="col-sm-6" style="display:flex; width:50%;">
+                <input type="text" class="form-control" style="margin-right: 30px;" name="Search">
+                <button type="submit" style="background-color:white; border-color:lightgray; color:black;" class="btn btn-primary" id="btn1"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+        </div>
+</form>
+    <table class="table tb1" id="table1">
+        <tbody>
+            @foreach (var KH in Model.listKH)
+            {
+                <tr>
+                    <td>@KH.MaKH</td>
+                    <td>@KH.TenKH</td>
+                    <td>
+                        <a class="btn btn-primary btn-sm" href="/Ban/Create?MaKH=@KH.MaKH">Chọn</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+<form method="post">
+    <div class="row mb-3" >
+        <label class="col-sm-3 col-form-label lb">Mã hoá đơn</label>
+        <label class="col-sm-6 col-form-label" style="border-bottom:1px black solid; margin-left: 13px;width: 48%;">@Model.hd.MaHD</label>
+        <div class="col-sm-6" style="display:none;">
+            <input type="text" class="form-control" name="MaHD" value="@Model.hd.MaHD">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label lb">Mã khách hàng</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="MaKH" value="@Model.hd.MaKH" required>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label lb">Mã nhân viên</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="MaNV" value="@Model.hd.MaNV" required>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label lb">Ngày bán</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="ThoiGian" value="@Model.hd.ThoiGian.ToString("dd/MM/yyyy")">
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label lb">Chiết khấu</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="GiamGia" value="@Model.hd.GiamGia">
+        </div>
+    </div>
+
+
+    @if (Model.successMessage.Length > 0)
+    {
+        <div class="row mb-3">
+            <div class="col-sm-9">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>@Model.successMessage</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="row mb-3">
+        <div class="offset-sm-3 col-sm-3 d-grid">
+            <button type="submit" class="btn btn-primary">Thêm</button>
+        </div>
+        <div class="col-sm-3 d-grid">
+            <a class="btn btn-outline-primary" href="/Ban/Ban" role="button">Huỷ</a>
+        </div>
+    </div>
+</form>
+
+
+

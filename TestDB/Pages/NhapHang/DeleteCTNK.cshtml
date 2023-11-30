@@ -1,0 +1,30 @@
+﻿@page
+@using System.Data.SqlClient;
+@model TestDB.Pages.NhapHang.DeleteCTNKModel
+@{
+    try
+    {
+        String MaNhap = Request.Query["MaNhap"];
+        String MaH = Request.Query["MaH"];
+
+        String connectionString = "Data Source=THYHUONG;Initial Catalog=TestDB;Integrated Security=True";
+        using (SqlConnection connection = new SqlConnection(connectionString))
+        {
+            connection.Open();
+            String sql = "delete NHAP_CHITIET where MaNhap=@MaNhap and MaH=@MaH";
+
+            using (SqlCommand command = new SqlCommand(sql, connection))
+            {
+                command.Parameters.AddWithValue("@MaNhap", MaNhap);
+                command.Parameters.AddWithValue("@MaH", MaH);
+
+                command.ExecuteNonQuery();
+            }
+        }
+    }
+    catch (Exception)
+    {
+
+    }
+    Response.Redirect("/NhapHang/Create");
+}

@@ -1,0 +1,52 @@
+﻿@page
+@model TestDB.Pages.Hang.HangModel
+@{
+    ViewData["Title"] = "Danh sách hàng hóa";
+}
+<script src="https://kit.fontawesome.com/5a213e1813.js" crossorigin="anonymous"></script>
+<div style="background-color:#1877F2;">
+    <hr />
+    <h1 style="text-align:center; color:white">HÀNG HOÁ</h1>
+    <hr />
+</div>
+<br />
+
+<div style="display:flex;">
+    <form method="post" style="width:70%;">
+        <div class="col-sm-6" style="display:flex; width:100%;">
+            <input type="text" class="form-control" style="margin-right: 30px;" name="Search" value="@Model.searchInfo.Search">
+            <button type="submit" style="background-color:white; border-color:lightgray; color:black;" class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </div>
+    </form>
+    <div style="margin-left: 35.4%;">
+    <a style="background-color:#0dac50; float:right; margin-right: 100px; width: 90px; height:40px; padding-bottom: 0;
+    padding-top: 8px;" class="btn btn-primary btn-sm" href="/Hang/Create">Thêm mới</a>
+    </div>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Mã hàng</th>
+            <th>Tên hàng</th>
+            <th>Giá nhập</th>
+            <th>Giá bán</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var Hang in Model.listHang)
+        {
+            <tr>
+                <td>@Hang.MaH</td>
+                <td>@Hang.TenHang</td>
+                <td>@Hang.GiaNhap</td>
+                <td>@Hang.GiaBan</td>
+                <td>
+                    <a class="btn btn-primary btn-sm" href="/Hang/Edit?MaH=@Hang.MaH">Sửa</a>
+                    <a class="btn btn-danger btn-sm" href="/Hang/Delete?MaH=@Hang.MaH">Xoá</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,55 @@
+﻿@page
+@model TestDB.Pages.NhapHang.NhapHangModel
+@{
+    ViewData["Title"] = "Lịch sử nhập hàng";
+}
+<script src="https://kit.fontawesome.com/5a213e1813.js" crossorigin="anonymous"></script>
+<div style="background-color:#1877F2;">
+    <hr />
+    <h1 style="text-align:center; color:white;">NHẬP HÀNG</h1>
+    <hr />
+</div>
+<br />
+<div style="display:flex;">
+    <form method="post" style="width:70%;">
+        <div class="col-sm-6" style="display:flex; width:100%;">
+        <input type="text" class="form-control" style="margin-right: 30px;" name="Search" value="@Model.searchInfo.Search">
+        <button type="submit" style="background-color:white; border-color:lightgray; color:black;" class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </div>
+    </form>
+    <div style="margin-left: 36.6%;">
+        <a class="btn btn-primary btn-sm" style="background-color:#0dac50; float:right; margin-right: 83px; width: 92px; height:40px; padding-bottom: 0;
+        padding-top: 8px;" href="/NhapHang/CreateNK">Thêm mới</a>
+    </div>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Mã nhập kho</th>
+            <th>Nhà cung cấp</th>
+            <th>Nhân viên</th>
+            <th>Ngày nhập</th>
+            <th>Chiết khấu</th>
+            <th>Tổng tiền</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var NK in Model.listNK)
+        {
+            <tr>
+                <td>@NK.MaNhap</td>
+                <td>@NK.TenNCC</td>
+                <td>@NK.MaNV</td>
+                <td>@NK.ThoiGian.ToString("dd/MM/yyyy")</td>
+                <td>@NK.GiamGia</td>
+                <td>@NK.TongTien</td>
+                <td>
+                    <a class="btn btn-primary btn-sm" href="/NhapHang/Info?MaNhap=@NK.MaNhap">Xem</a>
+                    <a class="btn btn-danger btn-sm" href="/NhapHang/Delete?MaNhap=@NK.MaNhap">Xoá</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

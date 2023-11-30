@@ -1,0 +1,98 @@
+﻿@page
+@model TestDB.Pages.Ban.InfoModel
+@{
+    ViewData["Title"] = "Chi tiết hóa đơn";
+}
+<style>
+    .cthd{
+        width:40%;
+    }
+    .itm{
+        width:60%;
+        text-align: right;
+        padding-right: 70px;
+    }
+    hr{
+        width:90%;
+    }
+</style>
+<h2>Chi tiết hoá đơn</h2>
+<br />
+<br />
+<div style="display:flex; width:100%;">
+
+    <div style="width:30%;">
+        <div class="row mb-3">
+            <label class="col-sm-3 col-form-label cthd">Mã hoá đơn</label>
+            <label class="col-sm-3 col-form-label itm">@Model.cthdInfo.MaHD</label>
+        </div>
+        <div class="row mb-3">
+            <label class="col-sm-3 col-form-label cthd">Ngày bán</label>
+            <label class="col-sm-3 col-form-label itm">@Model.cthdInfo.ThoiGian.ToString("dd/MM/yyyy")</label>
+        </div>
+        <div class="row mb-3">
+            <label class="col-sm-3 col-form-label cthd">Nhân viên</label>
+            <label class="col-sm-3 col-form-label itm">@Model.cthdInfo.MaNV - @Model.cthdInfo.TenNV</label>
+        </div>
+        <div class="row mb-3">
+            <label class="col-sm-3 col-form-label cthd">Khách hàng</label>
+            <label class="col-sm-3 col-form-label itm">@Model.cthdInfo.MaKH - @Model.cthdInfo.TenKH</label>
+        </div>
+        <hr />
+        <div class="row mb-3">
+            <label class="col-sm-3 col-form-label cthd">Tổng số lượng</label>
+            <label class="col-sm-3 col-form-label itm">@Model.cthdInfo.TongSL</label>
+        </div>
+        <div class="row mb-3">
+            <label class="col-sm-3 col-form-label cthd">Tổng số mặt hàng</label>
+            <label class="col-sm-3 col-form-label itm">@Model.cthdInfo.TongHang</label>
+        </div>
+        <div class="row mb-3">
+            <label class="col-sm-3 col-form-label cthd">Chiết khấu</label>
+            <label class="col-sm-3 col-form-label itm">@Model.cthdInfo.GiamGia</label>
+        </div>
+        <div class="row mb-3">
+            <label class="col-sm-3 col-form-label cthd">Tổng tiền</label>
+            <label class="col-sm-3 col-form-label itm">@Model.cthdInfo.TongTien</label>
+        </div>
+    </div>
+
+    <div style="width:70%;">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Mã hàng</th>
+                    <th>Tên hàng</th>
+                    <th>Số lượng</th>
+                    <th>Giá bán</th>
+                    <th>Thành tiền</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var CThd in Model.listCThd)
+                {
+                    <tr style="height:10%;">
+                        <td>@CThd.MaH</td>
+                        <td>@CThd.TenHang</td>
+                        <td>@CThd.SoLuong</td>
+                        <td>@CThd.GiaBan</td>
+                        <td>@CThd.ThanhTien</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div style="margin-top:40px;">
+    <div class="row mb-3">
+        <div class="offset-sm-3 col-sm-3 d-grid">
+            <a class="btn btn-danger btn-sm" href="/Ban/Delete?MaHD=@Model.cthdInfo.MaHD">Xoá</a>
+        </div>
+        <div class="col-sm-3 d-grid">
+            <a class="btn btn-outline-primary" href="/Ban/Ban" role="button">Huỷ</a>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,169 @@
+﻿@page
+@model TestDB.Pages.NhapHang.CreateModel
+@{
+    ViewData["Title"] = "Thêm chi tiết phiếu nhập kho";
+}
+<script src="https://kit.fontawesome.com/5a213e1813.js" crossorigin="anonymous"></script>
+<style>
+    .cthd {
+        width: 50%;
+    }
+
+    .itm {
+        width: 50%;
+        text-align: right;
+        padding-right: 20px;
+    }
+
+    .tb1 {
+        z-index: 3;
+        width: 41.5%;
+        background-color: lightgray;
+        position: absolute;
+    }
+
+    .tb2 {
+        z-index: 1;
+        width: 40%;
+        position: absolute;
+    }
+
+    .hide {
+        display: none;
+    }
+</style>
+<h2>Thêm chi tiết phiếu nhập</h2>
+<br />
+
+<div style="display:flex; width:100%;">
+    <div style="width:70%;">
+
+        <form method="get" style="width:90%;">
+            <div class="mb-3">
+                <div class="col-sm-6" style="display:flex; width:100%;">
+                    <input type="text" class="form-control" style="margin-right: 30px;" name="Search">
+                    <button type="submit" style="background-color:white; border-color:lightgray; color:black;" class="btn btn-primary" id="btn1"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </div>
+            </div>
+        </form>
+        <table class="table tb1">
+            <tbody>
+                @foreach (var Hang in Model.listHang)
+                {
+                    <tr>
+                        <td>@Hang.MaH</td>
+                        <td>@Hang.TenHang</td>
+                        <td>@Hang.GiaNhap</td>
+                        <td>
+                            <a class="btn btn-primary btn-sm" href="/NhapHang/Create?MaH=@Hang.MaH">Chọn</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <table class="table tb2">
+            <thead>
+                <tr>
+                    <th>Mã hàng</th>
+                    <th>Tên hàng</th>
+                    <th>Số lượng</th>
+                    <th>Giá nhập</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <form method="post">
+                    <td><label class="col-sm-3 col-form-label">@Model.CTNK.MaH</label><input type="text" class="form-control hide" name="MaH" value="@Model.CTNK.MaH"></td>
+                    <td><label class="col-sm-3 col-form-label" style="width:100%;">@Model.CTNK.TenHang</label><input type="text" class="form-control hide" name="TenHang" value="@Model.CTNK.TenHang"></td>
+                    <td><input type="text" class="form-control" name="SoLuong" style="width:60px;" value="@Model.CTNK.SoLuong"></td>
+                    <td><label class="col-sm-3 col-form-label">@Model.CTNK.GiaNhap</label><input type="text" class="form-control hide" name="GiaNhap" value="@Model.CTNK.GiaNhap"></td>
+                    <input type="text" class="form-control hide" name="ThanhTien" value="@Model.CTNK.ThanhTien">
+                    <input type="text" class="form-control hide" name="MaNhap" value="@Model.CTNK.MaNhap">
+                    <td>
+                        <button type="submit" class="btn btn-primary btn-sm">Thêm</button>
+                       
+                    </td>
+                    </form>
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="table" style="margin-top:160px;">
+            <thead>
+                <tr>
+                    <th>Mã hàng</th>
+                    <th>Tên hàng</th>
+                    <th>Số lượng</th>
+                    <th>Giá nhập</th>
+                    <th>Thành tiền</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var ctnk in Model.listCTNK)
+                {
+                    <tr>
+                        <td>@ctnk.MaH</td>
+                        <td>@ctnk.TenHang</td>
+                        <td>@ctnk.SoLuong</td>
+                        <td>@ctnk.GiaNhap</td>
+                        <td>@ctnk.ThanhTien</td>
+                        <td>
+                            <a class="btn btn-danger btn-sm" href="/NhapHang/DeleteCTNK?MaH=@ctnk.MaH&MaNhap=@ctnk.MaNhap">Xoá</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div style="width:30%; ">
+        <div style="margin-left: 30px; border:2px black solid; border-radius: 10px; padding: 10px 30px 10px 30px;">
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label cthd">Mã phiếu nhập</label>
+                <label class="col-sm-3 col-form-label itm">@Model.CTNK.MaNhap</label>
+            </div>
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label cthd">Nhân viên</label>
+                <label class="col-sm-3 col-form-label itm">@Model.NK.MaNV</label>
+            </div>
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label cthd">Nhà cung cấp</label>
+                <label class="col-sm-3 col-form-label itm">@Model.NK.MaNCC</label>
+            </div>
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label cthd">Ngày nhập</label>
+                <label class="col-sm-3 col-form-label itm">@Model.NK.ThoiGian.ToString("dd/MM/yyyy")</label>
+            </div>
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label cthd">Chiết khấu</label>
+                <label class="col-sm-3 col-form-label itm">@Model.NK.GiamGia</label>
+            </div>
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label cthd">Tổng tiền</label>
+                <label class="col-sm-3 col-form-label itm">@Model.NK.TongTien</label>
+            </div>
+            
+        </div>
+
+        <div class="row mb-3" style="padding: 30px 0px 30px 55px;">
+            <div class="offset-sm-3 col-sm-3 d-grid" style="margin:auto; width:50%;">
+                <a class="btn btn-primary" href="/NhapHang/NhapHang" style="width:130px;background-color: #0dac50;">HOÀN THÀNH</a>
+            </div>
+            <div class="col-sm-3 d-grid" style="margin:0px; width:50%;">
+                <a class="btn btn-outline-primary" style="width:130px;" href="/NhapHang/Delete?MaNhap=@Model.CTNK.MaNhap" role="button">HUỶ</a>
+            </div>
+        </div>
+    </div>
+</div>
+@if (Model.errorMessage.Length > 0)
+{
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>@Model.errorMessage</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+
+

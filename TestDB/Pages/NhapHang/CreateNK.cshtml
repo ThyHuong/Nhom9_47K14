@@ -1,0 +1,108 @@
+﻿@page
+@model TestDB.Pages.NhapHang.CreateNKModel
+@{
+    ViewData["Title"] = "Thêm phiếu nhập kho mới";
+}
+<script src="https://kit.fontawesome.com/5a213e1813.js" crossorigin="anonymous"></script>
+<style>
+    .tb1 {
+        z-index: 3;
+        background-color: lightgray;
+        position: absolute;
+        width: 40%;
+    }
+
+    .lb {
+        padding-left: 13%;
+        margin-bottom: 10px;
+    }
+</style>
+<h2>Thêm phiếu nhập mới</h2>
+<br />
+@if (Model.errorMessage.Length > 0)
+{
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>@Model.errorMessage</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+    <form method="get">
+        <div class="mb-3">
+            <div class="col-sm-6" style="display:flex; width:50%;">
+                <input type="text" class="form-control" style="margin-right: 30px;" name="Search">
+                <button type="submit" style="background-color:white; border-color:lightgray; color:black;" class="btn btn-primary" id="btn1"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+        </div>
+    </form>
+    <table class="table tb1" id="table1">
+        <tbody>
+            @foreach (var ncc in Model.listNCC)
+            {
+                <tr>
+                    <td>@ncc.MaNCC</td>
+                    <td>@ncc.TenNCC</td>
+                    <td>
+                        <a class="btn btn-primary btn-sm" href="/NhapHang/CreateNK?MaNCC=@ncc.MaNCC">Chọn</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <form method="post" style="margin-top:100px;">
+        <div class="row mb-3">
+            <label class="col-sm-3 col-form-label lb">Mã nhập hàng</label>
+            <label class="col-sm-6 col-form-label" style="border-bottom:1px black solid; margin-left: 13px;width: 48%;">@Model.nk.MaNhap</label>
+            <div class="col-sm-6" style="display:none;">
+                <input type="text" class="form-control" name="MaNhap" value="@Model.nk.MaNhap">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label class="col-sm-3 col-form-label lb">Mã nhà cung cấp</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" name="MaNCC" value="@Model.nk.MaNCC">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label class="col-sm-3 col-form-label lb">Mã nhân viên</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" name="MaNV" value="@Model.nk.MaNV">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label class="col-sm-3 col-form-label lb">Ngày nhập</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" name="ThoiGian" value="@Model.nk.ThoiGian.ToString("dd/MM/yyyy")">
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label class="col-sm-3 col-form-label lb">Chiết khấu</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" name="GiamGia" value="@Model.nk.GiamGia">
+            </div>
+        </div>
+
+
+        @if (Model.successMessage.Length > 0)
+        {
+            <div class="row mb-3">
+                <div class="col-sm-9">
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>@Model.successMessage</strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="row mb-3">
+            <div class="offset-sm-3 col-sm-3 d-grid">
+                <button type="submit" class="btn btn-primary">Thêm</button>
+            </div>
+            <div class="col-sm-3 d-grid">
+                <a class="btn btn-outline-primary" href="/NhapHang/NhapHang" role="button">Huỷ</a>
+            </div>
+        </div>
+    </form>
+
+

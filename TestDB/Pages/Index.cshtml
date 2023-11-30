@@ -1,0 +1,59 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Đăng nhập";
+}
+<script src="https://kit.fontawesome.com/5a213e1813.js" crossorigin="anonymous"></script>
+<style>
+    header{
+        display:none;
+    }
+    h1{
+        text-align:center;
+        color: #1877F2;
+        margin: 50px 0px 40px 0px;
+    }
+    .row{
+        margin:auto;
+        width: 70%;
+    }
+</style>
+<br />
+<div style="border: 2px solid #1877F2; border-radius: 10px; width:40%; margin: 130px auto 0px auto;">
+    <h1>ĐĂNG NHẬP</h1>
+    <br />
+        @if (Model.errorMessage.Length > 0)
+        {
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>@Model.errorMessage</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+
+    <form method="post">
+        <div class="row mb-3">
+            <input type="text" class="form-control" name="UserName" placeholder="Username" value="@Model.loginInfo.UserName">
+        </div>
+        <div class="row mb-3" style="display:flex;">
+            <input type="password" class="form-control" name="Pass" placeholder="Password" value="@Model.loginInfo.Pass">   
+        </div>
+  
+        @if (Model.successMessage.Length > 0)
+        {
+            <div class="row mb-3">
+                <div class="col-sm-9">
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>@Model.successMessage</strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="offset-sm-3 col-sm-3 d-grid" style="margin: 30px auto 30px auto; width:70%;">
+            <button type="submit" class="btn btn-primary">Đăng nhập</button>
+        </div>
+        <br />
+    </form>
+
+</div>

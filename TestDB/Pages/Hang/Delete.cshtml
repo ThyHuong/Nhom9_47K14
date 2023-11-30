@@ -1,0 +1,29 @@
+﻿@page
+@using System.Data.SqlClient;
+@model TestDB.Pages.Hang.DeleteModel
+@{
+    try
+    {
+        String MaH = Request.Query["MaH"];
+
+        String connectionString = "Data Source=THYHUONG;Initial Catalog=TestDB;Integrated Security=True";
+        using (SqlConnection connection = new SqlConnection(connectionString))
+        {
+            connection.Open();
+            String sql = "delete HANG where MaH=@MaH";
+
+            using (SqlCommand command = new SqlCommand(sql, connection))
+            {
+                command.Parameters.AddWithValue("@MaH", MaH);
+
+                command.ExecuteNonQuery();
+            }
+        }
+    }
+    catch (Exception)
+    {
+    }
+
+    Response.Redirect("/Hang/Hang");
+}
+

@@ -1,0 +1,38 @@
+﻿@page
+@using System.Data.SqlClient;
+@using TestDB.Pages.Ban
+@model TestDB.Pages.Ban.DeleteModel
+@{
+    HDInfo ret = new HDInfo();
+    try
+    {
+        String MaHD = Request.Query["MaHD"];
+        String connectionString = "Data Source=THYHUONG;Initial Catalog=TestDB;Integrated Security=True";
+        using (SqlConnection connection = new SqlConnection(connectionString))
+        {
+            connection.Open();
+            String sql1 = "delete Ban_CHITIET where MaHD=@MaHD";
+            String sql2 = "delete Ban where MaHD=@MaHD";
+
+            using (SqlCommand command = new SqlCommand(sql1, connection))
+            {
+                command.Parameters.AddWithValue("@MaHD", MaHD);
+
+                command.ExecuteNonQuery();
+            }
+
+            using (SqlCommand command = new SqlCommand(sql2, connection))
+            {
+                command.Parameters.AddWithValue("@MaHD", MaHD);
+
+                command.ExecuteNonQuery();
+            }
+        }
+    }
+    catch (Exception)
+    {
+
+    }
+    Response.Redirect("/Ban/Ban");
+}
+
