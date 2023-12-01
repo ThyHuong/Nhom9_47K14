@@ -7,6 +7,7 @@ namespace TestDB.Pages.KhachHang
     public class EditModel : PageModel
     {
         public KHInfo khInfo = new KHInfo();
+        public KHInfo oldInfo = new KHInfo();
         public String errorMessage = "";
         public String successMessage = "";
         public void OnGet()
@@ -60,16 +61,46 @@ namespace TestDB.Pages.KhachHang
                 String connectionString = "Data Source=THYHUONG;Initial Catalog=TestDB;Integrated Security=True";
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    connection.Open();
-                    String sql = "update KHACHHANG " + "set TenKH=@TenKH, SDT=@SDT where MaKH=@MaKH";
+                    String sql1 = "select * from KHACHHANG where MaKH=@MaKH";
 
-                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    using (SqlCommand command = new SqlCommand(sql1, connection))
                     {
-                        command.Parameters.AddWithValue("@MaKH", khInfo.MaKH);
-                        command.Parameters.AddWithValue("@TenKH", khInfo.TenKH);
-                        command.Parameters.AddWithValue("@SDT", khInfo.SDT);
-                        
-                        command.ExecuteNonQuery();
+                        command.Parameters.AddWithValue("@MaKH", MaKH);
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                oldInfo.MaKH = reader.GetString(0);
+                                oldInfo.TenKH = reader.GetString(1);
+                                oldInfo.SDT = reader.GetString(2);
+                                
+                            }
+                        }
+                    }
+                    connection.Open();
+                    if (KHInfo.SDT != oldInfo.SDT) {
+                        String sql = "update KHACHHANG " + "set TenKH=@TenKH, SDT=@SDT where MaKH=@MaKH";
+
+                        using (SqlCommand command = new SqlCommand(sql, connection))
+                        {
+                            command.Parameters.AddWithValue("@MaKH", khInfo.MaKH);
+                            command.Parameters.AddWithValue("@TenKH", khInfo.TenKH);
+                            command.Parameters.AddWithValue("@SDT", khInfo.SDT);
+                            
+                            command.ExecuteNonQuery();
+                        }
+                    }
+                    else
+                    {
+                        String sql = "update KHACHHANG " + "set TenKH=@TenKH where MaKH=@MaKH";
+
+                        using (SqlCommand command = new SqlCommand(sql, connection))
+                        {
+                            command.Parameters.AddWithValue("@MaKH", khInfo.MaKH);
+                            command.Parameters.AddWithValue("@TenKH", khInfo.TenKH);
+                            
+                            command.ExecuteNonQuery();
+                        }
                     }
                 }
 
