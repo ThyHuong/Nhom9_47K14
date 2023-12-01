@@ -65,7 +65,7 @@ namespace TestDB.Pages.KhachHang
 
                     using (SqlCommand command = new SqlCommand(sql1, connection))
                     {
-                        command.Parameters.AddWithValue("@MaKH", MaKH);
+                        command.Parameters.AddWithValue("@MaKH", khInfo.MaKH);
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             if (reader.Read())
@@ -78,7 +78,7 @@ namespace TestDB.Pages.KhachHang
                         }
                     }
                     connection.Open();
-                    if (KHInfo.SDT != oldInfo.SDT) {
+                    if (khInfo.SDT != oldInfo.SDT) {
                         String sql = "update KHACHHANG " + "set TenKH=@TenKH, SDT=@SDT where MaKH=@MaKH";
 
                         using (SqlCommand command = new SqlCommand(sql, connection))
